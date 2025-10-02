@@ -69,6 +69,7 @@ const Ingredients = (props) => {
     }, [sendRequest])
 
     const removedIngredientHandler = useCallback(ingredientId => {
+      console.debug('[Ingredients] removing id:', ingredientId);
       sendRequest(
         `https://hook-practice.firebaseio.com/ingredients/${ingredientId}.json`,
         'DELETE',
@@ -88,34 +89,21 @@ const Ingredients = (props) => {
       />
     }, [userIncredients, removedIngredientHandler])
 
-    return ( <
-      div className = "App" > {
-        error && < ErrorModal onClose = {
-          clear
-        } > {
-          error
-        } < /ErrorModal>} <
-        IngredientForm onAddIngredient = {
-          addIngredientHandler
-        }
-        loading = {
-          isLoading
-        }
+    return (
+      <div className="App">
+        {error && <ErrorModal onClose={clear}>{error}</ErrorModal>}
+
+        <IngredientForm
+          onAddIngredient={addIngredientHandler}
+          loading={isLoading}
         />
 
-        <
-        section >
-        <
-        Search onLoadIngredients = {
-          filteredIngredientsHandler
-        }
-        /> {
-          /* Need to add list here! */ } {
-          ingredientList
-        } <
-        /section> <
-        /div>
-      );
-    }
+        <section>
+          <Search onLoadIngredients={filteredIngredientsHandler} />
+          {ingredientList}
+        </section>
+      </div>
+    );
+};
 
-    export default Ingredients;
+export default Ingredients;
