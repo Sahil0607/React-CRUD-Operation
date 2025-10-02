@@ -54,23 +54,23 @@ const useHttp = () => {
         identifier: reqIdentifier,
       });
       fetch(url, {
-          method: method,
-          body: body,
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        })
-        .then(response => {
+        method: method,
+        body: body,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => {
           // Some endpoints (DELETE) respond with empty body. Use text() and parse only when not empty.
-          return response.text().then(text => {
+          return response.text().then((text) => {
             return text ? JSON.parse(text) : null;
           });
         })
-        .then(responseData => {
+        .then((responseData) => {
           dispatchHttp({
-            type: 'RESPONSE',
+            type: "RESPONSE",
             responseData: responseData,
-            extra: reqExtra
+            extra: reqExtra,
           });
         })
         .catch((error) => {
